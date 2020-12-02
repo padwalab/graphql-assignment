@@ -1,0 +1,31 @@
+version: "3.3"
+services:
+  # mysql_dbsvc:
+  #   container_name: mysql_dbsvc
+  #   image: mysql:latest
+  #   volumes:
+  #     - ./database/mysql/scripts.sql:/docker-entrypoint-initdb.d/scripts.sql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=dbpass
+  #     - MYSQL_DATABASE=hackernews
+  #   expose:
+  #     - "3306"
+  #   networks:
+  #     - test_net
+  graphql_service:
+    container_name: graphql_service
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    # depends_on:
+      # - "mysql_dbsvc"
+        # condition: service_healthy
+    networks:
+      - test_net
+networks:
+  test_net:
+    driver: bridge

@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  mysql_dbsvc:
+    container_name: mysql_dbsvc
+    image: mysql:latest
+    volumes:
+      - ./database/mysql/scripts.sql:/docker-entrypoint-initdb.d/scripts.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=dbpass
+      - MYSQL_DATABASE=hackernews
+    expose:
+      - "3306"
+    ports:
+      - "3366:3306"
+    networks:
+      - test_net
+networks:
+  test_net:
+    driver: bridge
